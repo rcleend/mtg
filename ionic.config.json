@@ -1,6 +1,5 @@
 {
-  "name": "mtg-app",
+  "name": "mtgApp",
   "integrations": {},
-  "type": "angular",
-  "id": "53413b4a"
+  "type": "angular"
 }
