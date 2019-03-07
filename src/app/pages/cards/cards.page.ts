@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  selector: 'app-cards',
+  templateUrl: './cards.page.html',
+  styleUrls: ['./cards.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class CardsPage implements OnInit {
 
   constructor(public afAuth: AngularFireAuth) { }
 
@@ -18,5 +18,6 @@ export class LoginPage implements OnInit {
       location.reload();
     })
   }
+
 
 }

@@ -1,10 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>login</ion-title>
+    <ion-title>cards</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-    <firebase-ui></firebase-ui>
     <ion-button *ngIf="afAuth.auth.currentUser" (click)="signOut()">Sign Out</ion-button>
 </ion-content>
