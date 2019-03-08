@@ -1,0 +1,35 @@
+:root {
+    --ion-background-color:  var(--ion-color-light);
+    
+    ion-toolbar{
+        --background: var(--ion-color-dark);
+        --color: white;
+
+        .header-logo{
+            display: block;
+            width: 50%;
+            max-width: 200px;
+            margin: auto;
+        }
+
+        &.sub-toolbar{
+            --background: var(--ion-color-medium);
+            padding-left: 12px;
+        }
+
+    }
+
+    
+
+    ion-tab-bar{
+        --background: var(--ion-color-dark);
+        --color: white;
+    }
+    
+    ion-input{
+        --background: white;    
+        --color: var(--ion-color-light);
+        border-radius: 4px;
+    }
+}
+
