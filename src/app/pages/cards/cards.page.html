@@ -1,0 +1,13 @@
+<ion-header>
+    <app-mtg-header></app-mtg-header>
+    <ion-toolbar class="sub-toolbar">
+        <app-mtg-input placeholder="Search Cards..."></app-mtg-input>
+        <ion-button fill="clear" slot="end">
+            <ion-icon name="options"></ion-icon>
+        </ion-button>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+<ion-button *ngIf="afAuth.auth.currentUser" (click)="signOut()">Sign Out</ion-button>
+</ion-content>
