@@ -7,6 +7,11 @@ import { IonicModule } from '@ionic/angular';
 
 import { CardsPage } from './cards.page';
 
+// Custom Components
+import { MtgHeaderComponent } from 'src/app/components/mtg-header/mtg-header.component';
+import { ComponentsModule } from 'src/app/components/components.module';
+import { MtgInputComponent } from 'src/app/components/mtg-input/mtg-input.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -19,8 +24,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [CardsPage]
+  declarations: [CardsPage],
+  entryComponents: [MtgHeaderComponent, MtgInputComponent]
 })
 export class CardsPageModule {}
