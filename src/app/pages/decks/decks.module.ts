@@ -10,7 +10,6 @@ import { DecksPage } from './decks.page';
 // Custom Components
 import { ComponentsModule } from 'src/app/components/components.module';
 import { MtgHeaderComponent } from 'src/app/components/mtg-header/mtg-header.component';
-import { MtgInputComponent } from 'src/app/components/mtg-input/mtg-input.component';
 
 const routes: Routes = [
   {
@@ -28,6 +27,6 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [DecksPage],
-  entryComponents: [MtgHeaderComponent, MtgInputComponent]
+  entryComponents: [MtgHeaderComponent]
 })
 export class DecksPageModule {}

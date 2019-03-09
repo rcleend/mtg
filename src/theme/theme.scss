@@ -19,7 +19,15 @@
 
     }
 
-    
+    ion-input{
+        --background: white;    
+        --color: var(--ion-color-light);
+        border-radius: 4px;
+
+        -webkit-box-shadow: inset 6px 6px 5px -5px rgba(0,0,0,0.2);
+        -moz-box-shadow: inset 6px 6px 5px -5px rgba(0,0,0,0.2);
+        box-shadow: inset 6px 6px 5px -5px rgba(0,0,0,0.2);
+    }   
 
     ion-tab-bar{
         --background: var(--ion-color-dark);
