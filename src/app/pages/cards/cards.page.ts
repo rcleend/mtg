@@ -8,7 +8,7 @@ import {CardService} from '../../services/card.service';
   styleUrls: ['./cards.page.scss'],
 })
 export class CardsPage implements OnInit {
-  cards : any;
+  cards : Array<object>;
   page: number;
   searchQuery: string;
 
@@ -26,8 +26,8 @@ export class CardsPage implements OnInit {
     this.cardService.loadCards(this.cards, this.page, this.searchQuery).then(event.target.complete);
   }
 
-  onChangeSearchQuery(event){
-    this.searchQuery = event;
+  onChangeSearchQuery(searchQuery){
+    this.searchQuery = searchQuery;
     this.cards= [];
     this.page= 1;
     this.cardService.loadCards(this.cards, this.page, this.searchQuery);
