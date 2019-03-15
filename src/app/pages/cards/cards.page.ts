@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import {CardService} from '../../services/card.service';
 
 @Component({
   selector: 'app-cards',
@@ -7,10 +8,29 @@ import { AngularFireAuth } from '@angular/fire/auth';
   styleUrls: ['./cards.page.scss'],
 })
 export class CardsPage implements OnInit {
+  cards : Array<object>;
+  page: number;
+  searchQuery: string;
 
-  constructor(public afAuth: AngularFireAuth) { }
+  constructor(private cardService: CardService, public afAuth: AngularFireAuth) { }
 
   ngOnInit() {
+    this.cards = [];
+    this.page = 1;
+    this.searchQuery = "";
+    this.cardService.loadCards(this.cards, this.page, this.searchQuery);
+  }
+
+  addCards(event){
+    this.page++;
+    this.cardService.loadCards(this.cards, this.page, this.searchQuery).then(event.target.complete);
+  }
+
+  onChangeSearchQuery(searchQuery){
+    this.searchQuery = searchQuery;
+    this.cards= [];
+    this.page= 1;
+    this.cardService.loadCards(this.cards, this.page, this.searchQuery);
   }
 
   signOut(){
@@ -18,6 +38,4 @@ export class CardsPage implements OnInit {
       location.reload();
     })
   }
-
-
 }
