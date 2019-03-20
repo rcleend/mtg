@@ -15,6 +15,8 @@ import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import { HttpClientModule } from '@angular/common/http';
+import { Camera } from '@ionic-native/camera/ngx';
+
  
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -57,6 +59,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

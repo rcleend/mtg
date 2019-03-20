@@ -2,14 +2,15 @@
     <app-mtg-header></app-mtg-header>
     <ion-toolbar class="sub-toolbar">
         <ion-input placeholder="Search Cards..." type="string" (ionChange)="onChangeSearchQuery($event.target.value)" debounce="500"></ion-input>
-        <ion-button fill="clear" slot="end">
-            <ion-icon name="options"></ion-icon>
+        <ion-button fill="clear" slot="end" (click)="takePhoto()">
+            <ion-icon name="camera"></ion-icon>
         </ion-button>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <!-- <ion-button *ngIf="afAuth.auth.currentUser" (click)="signOut()">Sign Out</ion-button> -->
+    <p>{{myPhoto}}</p>
     <div class="mtg-cards--container">
         <ion-img class="mtg-card"*ngFor="let card of cards"  [src]="card.imageUrl"></ion-img>
     </div>
