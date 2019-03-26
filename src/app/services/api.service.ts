@@ -10,7 +10,7 @@ const API_URL = environment.apiUrl;
 export class ApiService {
   constructor(private http: HttpClient) { }
 
-  getData(url){
+  getData(url) {
     return this.http.get(`${API_URL}/${url}`);
   }
 }

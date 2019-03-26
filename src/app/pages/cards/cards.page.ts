@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import {CardService} from '../../services/card.service';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { CardService } from '../../services/card.service';
+import { CameraService } from '../../services/camera.service';
+import { ClassifierService } from '../../services/classifier.service';
+
 
 @Component({
   selector: 'app-cards',
@@ -9,12 +11,12 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
   styleUrls: ['./cards.page.scss'],
 })
 export class CardsPage implements OnInit {
-  cards : Array<object>;
+  cards: Array<object>;
   page: number;
-  searchQuery: string;
-  myPhoto: any;
+  searchQuery: any;
+  searchImage: string;
 
-  constructor(private cardService: CardService, public afAuth: AngularFireAuth, private camera: Camera) { }
+  constructor(private cardService: CardService, private cameraService: CameraService, private classifierService: ClassifierService, public afAuth: AngularFireAuth) { }
 
   ngOnInit() {
     this.cards = [];
@@ -23,36 +25,48 @@ export class CardsPage implements OnInit {
     this.cardService.loadCards(this.cards, this.page, this.searchQuery);
   }
 
-  addCards(event){
+  addCards(event) {
     this.page++;
     this.cardService.loadCards(this.cards, this.page, this.searchQuery).then(event.target.complete);
   }
 
-  onChangeSearchQuery(searchQuery){
+  onChangeSearchQuery(searchQuery) {
     this.searchQuery = searchQuery;
-    this.cards= [];
-    this.page= 1;
+    this.cards = [];
+    this.page = 1;
     this.cardService.loadCards(this.cards, this.page, this.searchQuery);
   }
 
-  takePhoto(){
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+  async takePhoto() {
+    let image = document.createElement('img');
+    // this.searchImage = await this.cameraService.getPicture();
+    image.src = await this.cameraService.getPicture();
+    // let image = document.getElementById("search--image") as HTMLImageElement;
+    image.crossOrigin = "anonymous";
+    let classifierService = this.classifierService;
+    let cardService = this.cardService;
+    console.log(image);
+    image.onload = async () => {
+      console.log('image loaded');
+      let searchQuery = await classifierService.classifyImage(image);
+      cardService.loadCards(this.cards, this.page, searchQuery);
     }
+    // image.src = normalizeURL imageURI)
 
-    this.camera.getPicture(options).then((imageData) => {
-    // imageData is either a base64 encoded string or a file URI
-    // If it's base64 (DATA_URL):
-    this.myPhoto = 'data:image/jpeg;base64,' + imageData;
-    }, (err) => {
-    // Handle error
-    });
+    // let image = document.getElementById("search--image") as HTMLImageElement;
+
+    // console.log(image);
+    // this.searchQuery = await this.classifierService.classifyImage(image);
+
+    // this.cards = [];
+    // this.page = 1;
+
+
+    // this.cardService.loadCards(this.cards, this.page, this.searchQuery);
   }
 
-  signOut(){
+
+  signOut() {
     this.afAuth.auth.signOut().then(() => {
       location.reload();
     })
