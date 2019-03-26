@@ -6,12 +6,9 @@ import * as ml5 from 'ml5';
   providedIn: 'root'
 })
 export class ClassifierService {
-  image: HTMLImageElement;
   featureExtractor: any;
-  features: any;
-  imageLabel: string;
-  customLabelData: string;
   knnClassifier: any;
+  callBack: Function;
 
   constructor(private apiService: ApiService) {
     this.knnClassifier = ml5.KNNClassifier();
@@ -19,39 +16,21 @@ export class ClassifierService {
   }
 
   modelLoaded() {
-    console.log('model loaded');
     this.apiService.getData('classifier').subscribe((data: any) => {
-      this.knnClassifier.load(JSON.parse(data), this.customKnnLoaded);
+      this.knnClassifier.load(JSON.parse(data));
     });
   }
 
-  customKnnLoaded() {
-    console.log('Knn loaded');
+  async classifyImage(image: HTMLImageElement, callBack: Function) {
+    this.callBack = callBack
+    const features = await this.featureExtractor.infer(image)
+    this.knnClassifier.classify(features, this.addResultToCallBack.bind(this));
   }
 
-  async classifyImage(image: HTMLImageElement) {
-    this.image = image;
-    console.log(image);
-    console.log('classifying image');
-    const features = await this.featureExtractor.infer(this.image)
-    this.knnClassifier.classify(features, this.setImageLabel.bind(this));
-
-    // console.log('returning image label: ' + this.imageLabel);
-    return this.imageLabel
-    // return this.imageLabel;
-  }
-
-  async extractFeatures() {
-  }
-
-  async setImageLabel(err, result) {
-    console.log(result);
+  addResultToCallBack(err, result) {
     if (err) {
       console.error(err);
     }
-    console.log(result.label);
-
-    this.imageLabel = result.label;
-    this.apiService.getData(`cards?search=${result.label}`)
+    this.callBack(result.label);
   }
 }

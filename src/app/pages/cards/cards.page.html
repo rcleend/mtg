@@ -10,7 +10,6 @@
 </ion-header>
 
 <ion-content>
-    <p><img id="search--image" src="{{searchImage}}" style="width: 50%; height: auto;"></p>
     <!-- <ion-button *ngIf="afAuth.auth.currentUser" (click)="signOut()">Sign Out</ion-button> -->
     <div class="mtg-cards--container">
         <ion-img class="mtg-card" *ngFor="let card of cards" [src]="card.imageUrl"></ion-img>

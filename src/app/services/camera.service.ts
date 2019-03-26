@@ -14,8 +14,8 @@ export class CameraService {
     destinationType: this.camera.DestinationType.DATA_URL,
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE,
-    targetWidth: 1000,
-    targetHeight: 1000,
+    targetWidth: 400,
+    targetHeight: 400,
   }
   constructor(private camera: Camera, private webView: WebView, private apiService: ApiService) { }
 
@@ -28,29 +28,5 @@ export class CameraService {
 
     console.log('returning image');
     return this.takenPicture
-
-    //   // Create a featureExtractor that can extract features of an image
-    //   await this.apiService.getData('classifier').subscribe((data: any) => {
-    //     console.log('data loaded');
-    //     const featureExtractor = ml5.featureExtractor('MobileNet', () => {
-    //       console.log('model loaded')
-    //       knnClassifier.load(JSON.parse(data), () => {
-    //         console.log('knn  loaded')
-
-    //         // const features = featureExtractor.infer(takenPicture);
-    //         const features = featureExtractor.infer(document.getElementsByTagName("img")[0]);
-    //         knnClassifier.classify(features, function (err, result) {
-    //           label = result.label; // result.label is the predicted label
-    //           console.log(result.label);
-    //         });
-    //       });
-    //     });
-    //   });
-    //   // Get the features of an image
-
-    //   // Use KNN Classifier to classify these features
-    //   console.log(label);
-    //   return label;
-    //   // return label;
   }
 }

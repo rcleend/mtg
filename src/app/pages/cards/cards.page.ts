@@ -19,9 +19,7 @@ export class CardsPage implements OnInit {
   constructor(private cardService: CardService, private cameraService: CameraService, private classifierService: ClassifierService, public afAuth: AngularFireAuth) { }
 
   ngOnInit() {
-    this.cards = [];
-    this.page = 1;
-    this.searchQuery = "";
+    this.resetCards();
     this.cardService.loadCards(this.cards, this.page, this.searchQuery);
   }
 
@@ -31,38 +29,30 @@ export class CardsPage implements OnInit {
   }
 
   onChangeSearchQuery(searchQuery) {
+    this.resetCards();
     this.searchQuery = searchQuery;
-    this.cards = [];
-    this.page = 1;
     this.cardService.loadCards(this.cards, this.page, this.searchQuery);
   }
 
   async takePhoto() {
     let image = document.createElement('img');
-    // this.searchImage = await this.cameraService.getPicture();
     image.src = await this.cameraService.getPicture();
-    // let image = document.getElementById("search--image") as HTMLImageElement;
-    image.crossOrigin = "anonymous";
-    let classifierService = this.classifierService;
-    let cardService = this.cardService;
-    console.log(image);
-    image.onload = async () => {
-      console.log('image loaded');
-      let searchQuery = await classifierService.classifyImage(image);
-      cardService.loadCards(this.cards, this.page, searchQuery);
+    image.onload = () => {
+      this.classifierService.classifyImage(image, this.showDetailPage.bind(this));
     }
-    // image.src = normalizeURL imageURI)
+  }
 
-    // let image = document.getElementById("search--image") as HTMLImageElement;
+  showDetailPage(cardId: string) {
+    console.log('showing detail page');
+    console.log(cardId);
+    this.resetCards();
+    this.cardService.loadCard(this.cards, cardId);
+  }
 
-    // console.log(image);
-    // this.searchQuery = await this.classifierService.classifyImage(image);
-
-    // this.cards = [];
-    // this.page = 1;
-
-
-    // this.cardService.loadCards(this.cards, this.page, this.searchQuery);
+  resetCards() {
+    this.cards = [];
+    this.page = 1;
+    this.searchQuery = "";
   }
 
 
