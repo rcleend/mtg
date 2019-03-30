@@ -12,7 +12,6 @@ export class CardService {
   async loadCards(cards, page: number, searchQuery: string) {
     this.apiService.getData(`cards?page=${page}&limit=${this.limit}&search=${searchQuery}`).subscribe((data: Array<object>) => {
       for (const card of data) {
-        console.log(card);
         cards.push(card);
       }
     });
@@ -20,7 +19,6 @@ export class CardService {
 
   async loadCard(cards, searchQuery: string) {
     this.apiService.getData(`cards/${searchQuery}`).subscribe((card: object) => {
-      console.log(card);
       cards.push(card);
     });
   }
