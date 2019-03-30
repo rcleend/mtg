@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { ApiService } from './api.service';
-import { WebView } from '@ionic-native/ionic-webview/ngx'
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +15,7 @@ export class CameraService {
     targetWidth: 400,
     targetHeight: 400,
   }
-  constructor(private camera: Camera, private webView: WebView, private apiService: ApiService) { }
+  constructor(private camera: Camera) { }
 
   async getPicture() {
 

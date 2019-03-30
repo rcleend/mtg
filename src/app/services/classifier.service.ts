@@ -22,8 +22,8 @@ export class ClassifierService {
   }
 
   async classifyImage(image: HTMLImageElement, callBack: Function) {
-    this.callBack = callBack
-    const features = await this.featureExtractor.infer(image)
+    this.callBack = callBack;
+    const features = await this.featureExtractor.infer(image);
     this.knnClassifier.classify(features, this.addResultToCallBack.bind(this));
   }
 
