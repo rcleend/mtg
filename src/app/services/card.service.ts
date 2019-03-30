@@ -9,17 +9,18 @@ export class CardService {
 
   constructor(private apiService: ApiService) { }
 
-  public async loadCards(cards, page: number, searchQuery: string){
-    console.log(`page: ${page}, searchQuery: ${searchQuery}`)
+  async loadCards(cards, page: number, searchQuery: string) {
     this.apiService.getData(`cards?page=${page}&limit=${this.limit}&search=${searchQuery}`).subscribe((data: Array<object>) => {
-      console.log(data);
-      for(const card of data){
+      for (const card of data) {
         cards.push(card);
       }
     });
   }
 
-
-
+  async loadCard(cards, searchQuery: string) {
+    this.apiService.getData(`cards/${searchQuery}`).subscribe((card: object) => {
+      cards.push(card);
+    });
+  }
 
 }
