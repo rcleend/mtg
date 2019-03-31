@@ -17,10 +17,9 @@ export class CardService {
     });
   }
 
-  async loadCard(cards, searchQuery: string) {
-    this.apiService.getData(`cards/${searchQuery}`).subscribe((card: object) => {
-      cards.push(card);
+  async loadCard(searchQuery: string, callBack: Function) {
+    this.apiService.getData(`card/${searchQuery}`).subscribe((card: object) => {
+      callBack(card);
     });
   }
-
 }

@@ -1,5 +1,18 @@
 .mtg-input{
-        --background: white;    
-        --color: var(--ion-color-light);
-        border-radius: 4px;
+    --background: white;    
+    --color: var(--ion-color-light);
+    border-radius: 4px;
+}
+
+.mtg-cards--container {
+    display: flex;
+    flex-wrap: wrap;
+    .mtg-card {
+        flex: 45%; 
+        max-width: 45%;
+        margin: 2.5%;
+
+        background: var(--ion-color-dark);
+        border-radius: 5px;
     }
+}

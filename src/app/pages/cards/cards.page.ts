@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { CardService } from '../../services/card.service';
 import { CameraService } from '../../services/camera.service';
 import { ClassifierService } from '../../services/classifier.service';
-
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-cards',
@@ -16,7 +16,7 @@ export class CardsPage implements OnInit {
   searchQuery: any;
   searchImage: string;
 
-  constructor(private cardService: CardService, private cameraService: CameraService, private classifierService: ClassifierService, public afAuth: AngularFireAuth) { }
+  constructor(private cardService: CardService, private cameraService: CameraService, private classifierService: ClassifierService, private navController: NavController, public afAuth: AngularFireAuth) { }
 
   ngOnInit() {
     this.resetCards();
@@ -43,10 +43,7 @@ export class CardsPage implements OnInit {
   }
 
   showDetailPage(cardId: string) {
-    console.log('showing detail page');
-    console.log(cardId);
-    this.resetCards();
-    this.cardService.loadCard(this.cards, cardId);
+    this.navController.navigateForward(`/card/${cardId}`);
   }
 
   resetCards() {
