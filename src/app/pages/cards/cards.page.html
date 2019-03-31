@@ -12,9 +12,11 @@
 <ion-content>
     <!-- <ion-button *ngIf="afAuth.auth.currentUser" (click)="signOut()">Sign Out</ion-button> -->
     <div class="mtg-cards--container">
-        <ion-img class="mtg-card" *ngFor="let card of cards" [src]="card.imageUrl"></ion-img>
+        <ion-img class="mtg-card" *ngFor="let card of cards" [src]="card.imageUrl" (click)="showDetailPage(card.id)"
+            onerror="this.style.opacity='0'">
+        </ion-img>
     </div>
-    <ion-infinite-scroll (ionInfinite)="addCards($event)">
+    <ion-infinite-scroll (ionInfinite)=" addCards($event)">
         <ion-infinite-scroll-content loadingSpinner="bubble" loadingText="loading more cards...">
         </ion-infinite-scroll-content>
     </ion-infinite-scroll>
