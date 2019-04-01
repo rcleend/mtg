@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
-import io from 'socket.io-client';
+import * as io from 'socket.io-client'
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketService {
-  socket: any;
+  public socket;
 
   constructor() {
-    this.socket = io(`http://${environment.hostUrl}`, { transports: ['websocket'] });
+    this.socket = io(`http://${environment.hostUrl}`);
+  }
+
+  checkForClassifierUpdate(currentVersionNr) {
+    this.socket.emit('checkClassifierVersion', currentVersionNr);
   }
 }

@@ -48,6 +48,7 @@
     "firebaseui": "^3.5.2",
     "firebaseui-angular": "^3.4.1",
     "ml5": "^0.2.2",
+    "ngx-socket-io": "^2.1.1",
     "rxjs": "~6.3.3",
     "socket.io-client": "^2.2.0",
     "zone.js": "~0.8.29"
