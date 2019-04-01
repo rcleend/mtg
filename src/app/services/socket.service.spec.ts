@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ClassifierService } from './classifier.service';
+import { SocketService } from './socket.service';
 
-describe('ClassifierService', () => {
+describe('SocketService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ClassifierService = TestBed.get(ClassifierService);
+    const service: SocketService = TestBed.get(SocketService);
     expect(service).toBeTruthy();
   });
 });
