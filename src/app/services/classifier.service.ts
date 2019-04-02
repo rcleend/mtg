@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { SocketService } from './socket.service';
+import { PushService } from './push.service';
 import { Storage } from '@ionic/storage';
 
 import * as ml5 from 'ml5';
@@ -13,7 +14,7 @@ export class ClassifierService {
   knnClassifier: any;
   callBack: Function;
 
-  constructor(private apiService: ApiService, private socketService: SocketService, private storage: Storage) {
+  constructor(private apiService: ApiService, private socketService: SocketService, private pushService: PushService, private storage: Storage) {
     this.knnClassifier = ml5.KNNClassifier();
     this.featureExtractor = ml5.featureExtractor('MobileNet', this.modelLoaded());
     this.socketService.socket.on('update', this.updateModel.bind(this));
@@ -22,6 +23,7 @@ export class ClassifierService {
   updateModel(data) {
     this.storage.set('classifier', JSON.parse(data)).then((classifierData) => {
       this.knnClassifier.load(classifierData);
+      this.pushService.sendNotification('Card scan results updated!');
     });
   }
 

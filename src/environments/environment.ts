@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  hostUrl: "localhost:8080",
+  hostUrl: "https://mtg.dan-it.nl",
   firebase: {
     apiKey: "AIzaSyC1qe_fIx2VHYWoRFDnTYAlzFW2tXbEcwQ",
     authDomain: "mtgapp-5a05a.firebaseapp.com",
