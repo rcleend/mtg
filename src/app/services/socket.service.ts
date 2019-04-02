@@ -9,7 +9,7 @@ export class SocketService {
   public socket;
 
   constructor() {
-    this.socket = io(`http://${environment.hostUrl}`);
+    this.socket = io(environment.hostUrl);
   }
 
   checkForClassifierUpdate(currentVersionNr) {
