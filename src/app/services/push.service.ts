@@ -25,7 +25,10 @@ export class PushService {
     this.localNotifications.schedule({
       id: this.id++,
       title: this.title,
-      text: msg
+      text: msg,
+      foreground: true,
+      vibrate: true,
+      led: { color: '#F700FF', on: 500, off: 500 }
     });
   }
 }
