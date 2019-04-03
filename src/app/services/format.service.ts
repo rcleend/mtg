@@ -10,9 +10,7 @@ export class FormatService {
 
   async loadFormats(formats) {
     this.apiService.getData(`formats`).subscribe((data: Array<object>) => {
-      console.log(data);
-      for (const format of data.formats) {
-        console.log(format);
+      for (const format of data) {
         formats.push(format);
       }
     });

@@ -17,7 +17,7 @@ export class DeckDetailPage implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.cards = [];
-    this.deck = this.deckService.loadDeckCards();
+    this.deck = this.deckService.loadDeck(id, this.setDeck.bind(this));
   }
 
   setDeck(deck: object) {

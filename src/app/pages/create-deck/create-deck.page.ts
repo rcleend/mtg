@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { FormatService } from '../../services/format.service'
 import { DecksService } from '../../services/decks.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-deck',
@@ -13,7 +14,7 @@ export class CreateDeckPage implements OnInit {
   name: string;
   format: string;
 
-  constructor(private decksService: DecksService, private formatService: FormatService, private alertController: AlertController) { }
+  constructor(private decksService: DecksService, private formatService: FormatService, private alertController: AlertController, private navController: NavController, private afAuth: AngularFireAuth) { }
 
   ngOnInit() {
     this.formats = [];
@@ -27,16 +28,40 @@ export class CreateDeckPage implements OnInit {
     this.format = option;
   }
 
+  cancel() {
+    this.navController.pop();
+  }
+
+  createDeck() {
+    return {
+      name: this.name,
+      userUid: this.afAuth.auth.currentUser.uid,
+      format: this.format,
+      mainboard: []
+    }
+  }
+
   save() {
+    if (this.checkInput()) {
+      console.log('saving');
+      this.decksService.createDeck(this.createDeck());
+      this.navController.pop();
+    }
+  }
+
+  checkInput() {
     const regexCheck = /[a-z]/i;
     if (!this.name.match(regexCheck)) {
-      this.presentAlert('Please enter the name of your deck.');
+      this.presentAlert('Please enter a valid name for your deck.');
+      return false;
     }
-    else if (!this.format.match(regexCheck)) {
-      this.presentAlert('Please select the game format of your deck');
-    } else {
 
+    if (!this.format.match(regexCheck)) {
+      this.presentAlert('Please select the game format of your deck');
+      return false;
     }
+
+    return true;
   }
 
   async presentAlert(message) {

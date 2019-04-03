@@ -17,18 +17,18 @@ export class DecksPage implements OnInit {
 
   ngOnInit() {
     this.resetDecks();
-    this.decksService.loadDecks(this.decks, this.page, this.searchQuery);
+    this.decksService.loadDecks(this.decks, this.afAuth.auth.currentUser.uid, this.page, this.searchQuery);
   }
 
   addDecks(event) {
     this.page++;
-    this.decksService.loadDecks(this.decks, this.page, this.searchQuery).then(event.target.complete);
+    this.decksService.loadDecks(this.decks, this.afAuth.auth.currentUser.uid, this.page, this.searchQuery).then(event.target.complete);
   }
 
   onChangeSearchQuery(searchQuery) {
     this.resetDecks();
     this.searchQuery = searchQuery;
-    this.decksService.loadDecks(this.decks, this.page, this.searchQuery);
+    this.decksService.loadDecks(this.decks, this.afAuth.auth.currentUser.uid, this.page, this.searchQuery);
   }
 
   resetDecks() {

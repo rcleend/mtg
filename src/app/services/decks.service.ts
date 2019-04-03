@@ -9,8 +9,8 @@ export class DecksService {
 
   constructor(private apiService: ApiService) { }
 
-  async loadDecks(decks, page: number, searchQuery: string) {
-    this.apiService.getData(`decks?page=${page}&limit=${this.limit}&search=${searchQuery}`).subscribe((data: Array<object>) => {
+  async loadDecks(decks, uid: string, page: number, searchQuery: string) {
+    this.apiService.getData(`decks?uid=${uid}&page=${page}&limit=${this.limit}&search=${searchQuery}`).subscribe((data: Array<object>) => {
       console.log(data);
       for (const deck of data) {
         decks.push(deck);
@@ -20,12 +20,14 @@ export class DecksService {
 
   async loadDeck(id: string, callBack: Function) {
     this.apiService.getData(`deck/${id}`).subscribe((deck: object) => {
+      console.log(deck);
       callBack(deck);
     });
   }
-  async loadDeckCards() {
-    this.apiService.getData(`deck/hoi/mainboard`).subscribe((deck: object) => {
-      console.log(deck);
+
+  createDeck(deck) {
+    this.apiService.postData(`decks`, deck).subscribe((data: Array<object>) => {
+      console.log(data);
     });
   }
 
