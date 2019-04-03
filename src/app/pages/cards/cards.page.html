@@ -1,8 +1,8 @@
 <ion-header>
     <app-mtg-header></app-mtg-header>
     <ion-toolbar class="sub-toolbar">
-        <ion-input placeholder="Search Cards..." type="string" (ionChange)="onChangeSearchQuery($event.target.value)"
-            debounce="500"></ion-input>
+        <ion-searchbar placeholder="Search Cards..." type="string"
+            (ionChange)="onChangeSearchQuery($event.target.value)" debounce="500"></ion-searchbar>
         <ion-button fill="clear" slot="end" (click)="takePhoto()">
             <ion-icon name="camera"></ion-icon>
         </ion-button>
@@ -10,10 +10,10 @@
 </ion-header>
 
 <ion-content>
-    <!-- <ion-button *ngIf="afAuth.auth.currentUser" (click)="signOut()">Sign Out</ion-button> -->
-    <div class="mtg-cards--container">
-        <ion-img class="mtg-card" *ngFor="let card of cards" [src]="card.imageUrl" (click)="showDetailPage(card.id)"
-            onerror="this.style.opacity='0'">
+    <!-- <ion-button *ngIf="afAuth.auth.currentUser" dd -->
+    <div class="mtg-container">
+        <ion-img class="mtg-container-item" *ngFor="let card of cards" [src]="card.imageUrl"
+            (click)="showDetailPage(card.id)" onerror="this.style.opacity='0'">
         </ion-img>
     </div>
     <ion-infinite-scroll (ionInfinite)=" addCards($event)">

@@ -17,8 +17,8 @@ export class CardService {
     });
   }
 
-  async loadCard(searchQuery: string, callBack: Function) {
-    this.apiService.getData(`card/${searchQuery}`).subscribe((card: object) => {
+  async loadCard(id: string, callBack: Function) {
+    this.apiService.getData(`card/${id}`).subscribe((card: object) => {
       callBack(card);
     });
   }

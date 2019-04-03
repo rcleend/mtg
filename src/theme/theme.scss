@@ -18,28 +18,43 @@
 
     }
 
-    ion-input{
-        --background: white;    
-        border-radius: 4px;
-
-        -webkit-box-shadow: inset 6px 6px 5px -5px rgba(0,0,0,0.2);
-        -moz-box-shadow: inset 6px 6px 5px -5px rgba(0,0,0,0.2);
-        box-shadow: inset 6px 6px 5px -5px rgba(0,0,0,0.2);
-    }   
-
     ion-tab-bar{
         --background: var(--ion-color-dark);
         --color: white;
     }
-    
-    .mtg-cards--container {
+
+    .mtg-container {
         display: flex;
         flex-wrap: wrap;
-        .mtg-card {
-           flex: 45%; 
-           max-width: 45%;
-           margin: 2.5%;
+        .mtg-container-item {
+            position: relative;
+            flex: 45%; 
+            max-width: 45%;
+            margin: 2.5%;
+
+            .mtg-container-item-label{
+                position: absolute;
+                width: 100%;
+                z-index: 1000;
+
+                top: 42%;   
+                text-align: center;
+                color: white;
+                font-weight: bold;
+
+                &.mtg-add-label{
+                    font-size: 27px;
+                    color: var(--ion-color-medium) !important;
+                }
+            }
+
+            .mtg-container-item-image {
+                margin: 0;
+                min-width: 100%;
+                min-height: 100%
+            }
         }
     }
+ 
 }
 

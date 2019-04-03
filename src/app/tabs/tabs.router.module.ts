@@ -24,11 +24,6 @@ const routes: Routes = [
             loadChildren: '../pages/decks/decks.module#DecksPageModule'
           }
         ]
-      },
-      {
-        path: '',
-        redirectTo: '/tabs/cards',
-        pathMatch: 'full'
       }
     ]
   },

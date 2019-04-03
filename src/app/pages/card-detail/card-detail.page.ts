@@ -12,7 +12,7 @@ import { File } from '@ionic-native/file/ngx';
   styleUrls: ['./card-detail.page.scss'],
 })
 export class CardDetailPage implements OnInit {
-  card: any;
+  card: object;
 
   constructor(private cardService: CardService, private route: ActivatedRoute, private socialSharing: SocialSharing, private file: File) { }
 
@@ -22,8 +22,7 @@ export class CardDetailPage implements OnInit {
   }
 
   setCard(card: object) {
-    this.card = card
-    console.log(this.card);
+    this.card = card;
   }
 
   shareCard() {

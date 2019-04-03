@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { CardService } from '../../services/card.service';
 import { CameraService } from '../../services/camera.service';
 import { ClassifierService } from '../../services/classifier.service';
@@ -14,9 +13,8 @@ export class CardsPage implements OnInit {
   cards: Array<object>;
   page: number;
   searchQuery: any;
-  searchImage: string;
 
-  constructor(private cardService: CardService, private cameraService: CameraService, private classifierService: ClassifierService, private navController: NavController, public afAuth: AngularFireAuth) { }
+  constructor(private cardService: CardService, private cameraService: CameraService, private classifierService: ClassifierService, private navController: NavController) { }
 
   ngOnInit() {
     this.resetCards();
@@ -50,12 +48,5 @@ export class CardsPage implements OnInit {
     this.cards = [];
     this.page = 1;
     this.searchQuery = "";
-  }
-
-
-  signOut() {
-    this.afAuth.auth.signOut().then(() => {
-      location.reload();
-    })
   }
 }
