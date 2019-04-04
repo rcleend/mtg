@@ -1,21 +1,15 @@
 <ion-header>
   <app-mtg-header></app-mtg-header>
   <ion-toolbar class="sub-toolbar">
+    <ion-back-button color="light" slot="start"></ion-back-button>
     <ion-searchbar placeholder="Search Decks..." type="string" (ionChange)="onChangeSearchQuery($event.target.value)"
       debounce="500"></ion-searchbar>
-    <ion-button fill="clear" slot="end" (click)="signOut()">
-      <ion-icon name="person"></ion-icon>
-    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="mtg-container">
-    <div class="mtg-container-item" (click)="createNewDeck()">
-      <ion-icon name="add" class="mtg-container-item-label mtg-add-label"></ion-icon>
-      <img class="mtg-container-item-image" src="/assets/images/mtgBackEmpty.png" />
-    </div>
-    <div class="mtg-container-item" *ngFor="let deck of decks" (click)="showDeckDetailPage(deck._id)">
+    <div class="mtg-container-item" *ngFor="let deck of decks" (click)="addToDeck(deck._id)">
       <span class="mtg-container-item-label">{{deck.name}}</span>
       <img class="mtg-container-item-image" src="/assets/images/mtgBack.png" />
     </div>
@@ -24,5 +18,4 @@
     <ion-infinite-scroll-content loadingSpinner="bubble" loadingText="loading more decks...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
-
 </ion-content>

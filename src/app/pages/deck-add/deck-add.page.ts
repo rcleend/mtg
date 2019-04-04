@@ -1,27 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { DecksService } from '../../services/decks.service';
+
+import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 
+
 @Component({
-  selector: 'app-decks',
-  templateUrl: './decks.page.html',
-  styleUrls: ['./decks.page.scss'],
+  selector: 'app-deck-add',
+  templateUrl: './deck-add.page.html',
+  styleUrls: ['./deck-add.page.scss'],
 })
-export class DecksPage implements OnInit {
-  decks: Array<object>
+export class DeckAddPage implements OnInit {
   page: number;
   searchQuery: string;
+  decks: Array<object>
+  cardId: string;
 
-  constructor(private decksService: DecksService, private navController: NavController, private afAuth: AngularFireAuth) { }
+  constructor(private decksService: DecksService, private navController: NavController, private route: ActivatedRoute, private afAuth: AngularFireAuth) { }
 
   ngOnInit() {
     this.resetDecks();
+    this.cardId = this.route.snapshot.paramMap.get('id');
     this.decksService.loadDecks(this.decks, this.afAuth.auth.currentUser.uid, this.page, this.searchQuery);
   }
 
-  ionViewDidLoad() {
-    console.log("I'm alive!");
+  addToDeck(deckid: string) {
+    this.decksService.addToDeck(deckid, this.cardId);
+    this.navController.navigateBack('/tabs/cards');
   }
 
   addDecks(event) {
@@ -40,19 +46,4 @@ export class DecksPage implements OnInit {
     this.page = 1;
     this.searchQuery = "";
   }
-
-  createNewDeck() {
-    this.navController.navigateForward(`/deck/create`);
-  }
-
-  showDeckDetailPage(deckId: string) {
-    this.navController.navigateForward(`/deck/detail/${deckId}`);
-  }
-
-  signOut() {
-    this.afAuth.auth.signOut().then(() => {
-      location.reload();
-    })
-  }
-
 }

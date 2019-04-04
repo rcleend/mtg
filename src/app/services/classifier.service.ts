@@ -21,6 +21,7 @@ export class ClassifierService {
   }
 
   updateModel(data) {
+    console.log('updating model');
     this.storage.set('classifier', JSON.parse(data)).then((classifierData) => {
       this.knnClassifier.load(classifierData);
       this.pushService.sendNotification('Card scan results updated!');
@@ -50,6 +51,7 @@ export class ClassifierService {
     if (err) {
       console.error(err);
     }
+    console.log('result label:' + result.label);
     this.callBack(result.label);
   }
 }
