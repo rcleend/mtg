@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,9 +26,40 @@ export class DecksService {
     });
   }
 
-  createDeck(deck) {
-    this.apiService.postData(`decks`, deck).subscribe((data: Array<object>) => {
+  createDeck(name: string, userUid: string, format: string, callBack: Function) {
+    const deck = {
+      name: name,
+      userUid: userUid,
+      format: format
+    }
+    this.apiService.postData('decks', deck).subscribe((data: Array<object>) => {
       console.log(data);
+      callBack();
+    });
+  }
+
+  addToDeck(deckId: string, cardId: string) {
+    const data = {
+      deckId: deckId,
+      cardId: cardId
+    }
+
+    this.apiService.putData('decks', data).subscribe((data: Array<object>) => {
+      console.log(data);
+    });
+  }
+
+  removeFromDeck(deckId: string, cardId: string, callBack: Function) {
+    this.apiService.deleteData(`decks/${deckId}/${cardId}`).subscribe((data: Array<object>) => {
+      console.log(data);
+      callBack();
+    });
+  }
+
+  deleteDeck(deckId: string, callBack: Function) {
+    this.apiService.deleteData(`decks/${deckId}`).subscribe((data: Array<object>) => {
+      console.log(data);
+      callBack();
     });
   }
 

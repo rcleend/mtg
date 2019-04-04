@@ -3,7 +3,7 @@ import { CardService } from 'src/app/services/card.service';
 import { ActivatedRoute } from '@angular/router';
 
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-import { File } from '@ionic-native/file/ngx';
+import { NavController } from '@ionic/angular';
 
 
 @Component({
@@ -12,9 +12,9 @@ import { File } from '@ionic-native/file/ngx';
   styleUrls: ['./card-detail.page.scss'],
 })
 export class CardDetailPage implements OnInit {
-  card: object;
+  card: any;
 
-  constructor(private cardService: CardService, private route: ActivatedRoute, private socialSharing: SocialSharing, private file: File) { }
+  constructor(private cardService: CardService, private route: ActivatedRoute, private socialSharing: SocialSharing, private navController: NavController) { }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -27,6 +27,10 @@ export class CardDetailPage implements OnInit {
 
   shareCard() {
     this.socialSharing.share(`Look at this MTG card! ${this.card.name}: \n${this.card.imageUrl}`, null, null);
+  }
+
+  addCardToDeck(cardId: string) {
+    this.navController.navigateForward(`/deck/add/${cardId}`);
   }
 
 }

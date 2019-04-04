@@ -1,0 +1,10 @@
+.mtg-amount-label::before{
+    content: attr(amount);
+    background: var(--ion-color-primary);
+    color: var(--ion-color-light);
+    position: absolute;
+    padding: 11px 15px;
+    margin: 2px;
+    border-radius: 30px;
+    box-shadow: 0px 8px 5px -6px rgba(0,0,0,0.8);
+}

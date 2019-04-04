@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { DecksService } from '../../services/decks.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-deck-detail',
@@ -12,7 +13,7 @@ export class DeckDetailPage implements OnInit {
   cards: Array<object>;
   deck: object;
 
-  constructor(private route: ActivatedRoute, private deckService: DecksService) { }
+  constructor(private route: ActivatedRoute, private navController: NavController, private deckService: DecksService) { }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -22,6 +23,9 @@ export class DeckDetailPage implements OnInit {
 
   setDeck(deck: object) {
     this.deck = deck;
+    if (deck[0] === undefined)
+      return;
+    this.loadCards(deck[0].mainboard);
   }
 
   loadCards(cards) {
@@ -31,9 +35,20 @@ export class DeckDetailPage implements OnInit {
     }
   }
 
-  addCard() {
-
+  deleteDeck() {
+    this.deckService.deleteDeck(this.route.snapshot.paramMap.get('id'), this.backAfterDelete);
   }
 
+  showDetailPage(cardId) {
+    this.navController.navigateForward(`/deck/${this.deck[0]._id}/${cardId}`);
+  }
 
+  back() {
+    this.navController.navigateBack('/tabs/decks');
+  }
+
+  backAfterDelete() {
+    window.location.href = '/tabs/decks'
+  }
 }
+

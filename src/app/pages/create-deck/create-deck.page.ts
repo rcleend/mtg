@@ -32,22 +32,16 @@ export class CreateDeckPage implements OnInit {
     this.navController.pop();
   }
 
-  createDeck() {
-    return {
-      name: this.name,
-      userUid: this.afAuth.auth.currentUser.uid,
-      format: this.format,
-      mainboard: []
+  save() {
+    if (this.checkInput()) {
+      this.decksService.createDeck(this.name, this.afAuth.auth.currentUser.uid, this.format, this.returnAfterSave);
     }
   }
 
-  save() {
-    if (this.checkInput()) {
-      console.log('saving');
-      this.decksService.createDeck(this.createDeck());
-      this.navController.pop();
-    }
+  returnAfterSave() {
+    window.location.href = '/tabs/decks/';
   }
+
 
   checkInput() {
     const regexCheck = /[a-z]/i;

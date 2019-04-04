@@ -14,8 +14,8 @@ export class SigninPage implements OnInit {
   ngOnInit() {
   }
 
-  successCallback(){
-    this.router.navigate(['./tabs/'])
+  successCallback() {
+    this.router.navigate(['/'])
   }
 
 }
